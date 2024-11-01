@@ -14,7 +14,11 @@ const HLSPlayer: React.FC<HLSPlayerProps> = ({ src, ...props }) => {
       const video = videoRef.current;
 
       if (Hls.isSupported()) {
-        const hls = new Hls();
+        const hls = new Hls({
+            maxBufferSize: 10,
+            maxMaxBufferSize: 20
+        });
+
         hls.loadSource(src);
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
